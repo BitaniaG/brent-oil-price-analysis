@@ -175,3 +175,126 @@ Single change point model may not capture multiple structural breaks
 External macroeconomic variables are not directly modeled
 
 Associations with events are correlational, not causal
+
+# Task 3: Interactive Dashboard and API Development
+## Objective
+
+The objective of Task 3 is to operationalize the analytical insights generated in Task 2 by developing a backend API and a frontend dashboard architecture. This task bridges advanced Bayesian change point modeling with stakeholder-facing tools that enable interactive exploration of Brent oil price trends, detected structural breaks, and major geopolitical events.
+
+## System Architecture Overview
+
+Task 3 follows a modular, service-oriented architecture consisting of:
+
+Backend (Flask API): Serves processed data and model outputs through RESTful endpoints.
+
+Frontend (React – conceptual): Provides a component-based structure for interactive data visualization.
+
+Data Layer: Stores raw price data, event data, and processed change point outputs.
+
+This separation of concerns improves scalability, maintainability, and clarity.
+
+## Project Structure
+dashboard/
+├── backend/
+│   ├── app.py
+│   ├── routes/
+│   │   ├── prices.py
+│   │   ├── events.py
+│   │   └── changepoints.py
+│   ├── services/
+│   │   └── data_service.py
+│   └── __init__.py
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── PriceChart.jsx
+│   │   │   ├── ChangePointChart.jsx
+│   │   │   └── EventTimeline.jsx
+│   │   └── App.jsx
+│   └── package.json
+## Backend API (Flask)
+### Purpose
+
+The backend exposes Brent oil prices, oil market events, and Bayesian change point results via RESTful endpoints. These endpoints are designed to support dashboard visualization and future extensions.
+
+### Available Endpoints
+| Endpoint            | Description                                         |
+| ------------------- | --------------------------------------------------- |
+| `/`                 | Health check for backend                            |
+| `/api/prices`       | Returns Brent oil price time series                 |
+| `/api/events`       | Returns major geopolitical and economic events      |
+| `/api/changepoints` | Returns detected change point and quantified impact |
+### Backend Setup and Execution
+
+#### Install required dependencies:
+
+pip install flask pandas
+
+#### Run the backend server:
+
+cd dashboard/backend
+python app.py
+
+#### Verify endpoints in a browser:
+
+http://127.0.0.1:5000/
+http://127.0.0.1:5000/api/prices
+http://127.0.0.1:5000/api/events
+http://127.0.0.1:5000/api/changepoints
+
+Successful responses confirm correct backend functionality.
+### Frontend Dashboard (React – Conceptual Implementation)
+#### Purpose
+
+The frontend provides a structured, component-based architecture for visualizing oil prices, change points, and events. While a fully running React application is not required, the folder structure and components demonstrate how the dashboard would consume backend APIs.
+
+#### Frontend Components
+| Component              | Description                           |
+| ---------------------- | ------------------------------------- |
+| `PriceChart.jsx`       | Displays Brent oil price trends       |
+| `ChangePointChart.jsx` | Highlights detected structural breaks |
+| `EventTimeline.jsx`    | Shows key oil market events           |
+| `App.jsx`              | Main dashboard container              |
+Each component is designed to independently consume data from the Flask API, enabling modular visualization and future scalability.
+## Data Integration
+
+The backend accesses data from the following locations:
+
+Raw price data: data/raw/brent_oil_prices.csv
+
+Event data: data/external/oil_market_events.csv
+
+Model outputs: data/processed/changepoints.json
+
+Relative paths are used to ensure compatibility with the nested dashboard/backend directory structure.
+
+## Assumptions
+
+Backend APIs serve as the single source of truth for dashboard data.
+
+Frontend components consume data asynchronously via REST endpoints.
+
+Change point outputs represent statistically significant structural breaks but do not imply causal certainty.
+
+## Limitations
+
+The frontend is provided as an architectural skeleton rather than a fully deployed application.
+
+Only a single change point model output is currently exposed.
+
+External macroeconomic indicators are not included at this stage.
+
+## Future Enhancements
+
+Deployment of a fully interactive React dashboard
+
+Support for multiple detected change points
+
+Integration of additional macroeconomic data sources
+
+Enhanced visual analytics (filters, tooltips, regime highlighting)
+
+## Conclusion
+
+Task 3 successfully translates Bayesian change point analysis into an operational dashboard architecture. By exposing analytical outputs through a RESTful API and designing a modular frontend structure, this task demonstrates how advanced statistical insights can be transformed into accessible decision-support tools for energy sector stakeholders.
