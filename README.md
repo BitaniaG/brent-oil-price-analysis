@@ -102,3 +102,76 @@ Results from this analysis are communicated through:
 
 ## Outcome of Task 1
 Task 1 establishes a clear analytical framework, validates the suitability of change point modeling, and prepares the data and documentation required for Bayesian inference in Task 2.
+
+# Task 2: Bayesian Change Point Modeling and Insight Generation
+## Objective
+
+The objective of Task 2 is to apply Bayesian change point detection to identify and quantify structural breaks in Brent crude oil prices. This task aims to detect statistically significant shifts in price behavior, interpret their magnitude, and associate them with major geopolitical and economic events.
+
+## Methodology Overview
+
+### Data Preparation
+
+Loaded and validated Brent oil price data
+
+Converted date fields to datetime format
+
+Computed log returns to achieve stationarity
+
+### Exploratory Data Analysis
+
+Visualized raw price trends and volatility patterns
+
+Analyzed log returns to observe volatility clustering
+
+Conducted Augmented Dickey-Fuller (ADF) tests to confirm stationarity
+
+### Bayesian Change Point Modeling
+
+Implemented a Bayesian change point model in PyMC
+
+Defined a discrete uniform prior for the unknown change point
+
+Modeled pre- and post-change regimes with separate mean parameters
+
+Estimated posterior distributions using MCMC sampling
+
+### Model Diagnostics and Interpretation
+
+Assessed convergence using trace plots and R-hat statistics
+
+Identified probable change point dates from posterior distributions
+
+Quantified shifts in average price behavior before and after change points
+
+### Event Association
+
+Compared detected change points with major geopolitical and economic events
+
+Formulated hypotheses linking structural breaks to real-world shocks
+
+## Key Outputs
+
+Posterior distribution of detected change points
+
+Quantified estimates of regime shifts (before vs. after means)
+
+Probabilistic interpretation of structural breaks
+
+Hypothesis-driven association with oil market events
+
+## Key Assumptions
+
+Price changes can be approximated by regime-based mean shifts
+
+Detected change points indicate structural changes, not definitive causality
+
+Log returns sufficiently capture stationarity for modeling
+
+## Limitations
+
+Single change point model may not capture multiple structural breaks
+
+External macroeconomic variables are not directly modeled
+
+Associations with events are correlational, not causal
