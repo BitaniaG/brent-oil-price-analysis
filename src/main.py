@@ -2,6 +2,8 @@ from src.data.load import load_price_data
 from src.data.preprocess import add_log_returns
 from src.models.change_point import run_change_point_model
 from src.config.settings import Config
+from src.visualization.plot_change_point import plot_change_point
+
 import arviz as az
 from pathlib import Path
 import numpy as np
@@ -42,6 +44,9 @@ def main():
     # ===== Diagnostics =====
     summary = az.summary(trace)
     print(summary)
+
+    # ===== Visualization =====
+    plot_change_point(df_sample, change_date)
 
 
 if __name__ == "__main__":
