@@ -1,13 +1,17 @@
-date,event
-1990-08-02,Invasion of Kuwait
-2003-03-20,Iraq War begins
-2008-07-11,Record high price spike
-2008-12-01,Global Financial Crisis
-2011-02-15,Libyan Civil War
-2014-11-27,OPEC non-cut decision
-2016-11-30,OPEC production cut
-2018-05-08,US Iran Sanctions
-2020-03-08,Oil price war
-2020-04-20,Negative WTI prices (COVID)
-2021-10-01,Global energy crisis
-2022-02-24,Russia-Ukraine War
+date,event,category,description
+1990-08-02,Invasion of Kuwait,Geopolitical,Iraq invaded Kuwait leading to the Gulf War and major disruption in global oil supply
+2001-09-11,September 11 Attacks,Geopolitical,Terrorist attacks in the United States increased geopolitical risk and uncertainty in global markets
+2003-03-20,Iraq War begins,Geopolitical,US-led invasion of Iraq affected oil production and exports from a major oil-producing country
+2008-07-11,Record high oil price spike,Economic,Brent oil prices reached record highs due to strong demand and supply constraints
+2008-12-01,Global Financial Crisis,Economic,Global recession caused a sharp decline in oil demand and prices
+2011-02-15,Libyan Civil War,Geopolitical,Civil war in Libya disrupted oil production and exports
+2014-11-27,OPEC non-cut decision,OPEC,OPEC decided not to cut production resulting in a prolonged oil price collapse
+2016-01-16,Iran sanctions lifted,Geopolitical,Lifting of international sanctions allowed Iran to re-enter global oil markets
+2016-11-30,OPEC production cut,OPEC,OPEC and partners agreed on coordinated production cuts to stabilize prices
+2018-05-08,US Iran sanctions,Geopolitical,United States reimposed sanctions on Iran reducing its oil exports
+2020-03-08,Oil price war,OPEC+,Saudi Arabia and Russia engaged in a price war causing a sharp fall in oil prices
+2020-04-20,Negative WTI prices (COVID),Economic,COVID-19 demand collapse and storage shortages led to negative oil prices
+2020-04-12,OPEC+ historic production cut,OPEC+,OPEC+ agreed to record production cuts to stabilize collapsing prices
+2021-10-01,Global energy crisis,Economic,Post-pandemic demand surge combined with supply constraints increased energy prices
+2022-02-24,Russia-Ukraine War,Geopolitical,Russian invasion of Ukraine disrupted global energy supply chains
+2022-03-08,Western sanctions on Russia,Geopolitical,Sanctions on Russian energy exports intensified global supply concerns
