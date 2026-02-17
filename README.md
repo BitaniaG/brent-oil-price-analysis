@@ -1,300 +1,229 @@
-# brent-oil-price-analysis
-Statistical modeling and Bayesian change point detection of Brent oil prices (1987-2022) to analyze the impact of geopolitical and economic events using PyMC, Flask, and React.
+# Brent Oil Structural Break Analysis
 
-# Brent Oil Price Change Point Analysis
+Bayesian Change Point Detection & Interactive Dashboard
 
-## Project Overview
-This project analyzes historical Brent crude oil prices to identify structural breaks in price behavior and associate them with major geopolitical, economic, and policy-related events. The analysis uses Bayesian Change Point Detection to quantify how such events impact oil price dynamics over time.
+## Short Description
 
-The project is developed as part of the 10 Academy KAIM Week 11 Challenge, focusing on probabilistic modeling, statistical reasoning, and data-driven storytelling for policy and investment decision-making.
+This project applies Bayesian change point detection to identify structural breaks in Brent crude oil prices. It combines probabilistic modeling, statistical diagnostics, and an interactive Streamlit dashboard to detect and interpret regime shifts in oil market dynamics.
 
----
+## Business Problem
 
-## Business Context
-Oil prices are highly sensitive to geopolitical conflicts, economic shocks, and policy decisions such as OPEC production changes. Understanding *when* and *how* these events alter market behavior is crucial for investors, policymakers, and energy companies.
+Oil price volatility significantly impacts:
 
-This analysis aims to:
-- Detect statistically significant change points in Brent oil prices
-- Quantify price behavior before and after these changes
-- Compare detected change points with real-world events
-- Communicate insights clearly through reports and dashboards
+- Energy companies
 
----
+- Governments
+
+- Investors
+
+- Supply chain planning
+
+- Inflation forecasting
+
+Unexpected structural breaks in oil price behavior can lead to:
+
+- Mispricing risk
+
+- Poor hedging decisions
+
+- Incorrect forecasting models
+
+- Financial losses
+
+Traditional time-series models assume stable statistical properties. However, oil markets are subject to geopolitical shocks, economic crises, and supply disruptions that fundamentally alter price dynamics.
+
+The challenge:
+Detect when the underlying price-generating process changes.
+
+## Solution Overview
+
+This project implements Bayesian change point detection to:
+
+1. Model Brent oil log returns.
+
+2. Estimate the posterior distribution of a structural break.
+
+3. Quantify uncertainty in the detected switchpoint.
+
+4. Compare pre- and post-regime behavior.
+
+5. Visualize results through an interactive dashboard.
+
+Inference results are cached to ensure computational efficiency.
+
+An executive-friendly dashboard communicates findings clearly.
+
+## Key Results
+
+- Identified statistically significant structural break in Brent oil price dynamics.
+
+- Quantified posterior uncertainty around regime shift.
+
+- Demonstrated measurable differences in:
+
+     - Mean price levels (pre vs post regime)
+
+     - Volatility (standard deviation of log returns)
+
+- Reduced re-computation time by caching model inference (NetCDF storage).
+
+- Improved project reliability with automated testing and CI integration.
+
+(Note: Exact numerical values depend on selected sample size in dashboard.)
+
+##  Quick Start
+
+git clone https://github.com/your-username/brent-oil-change-point
+cd brent-oil-change-point
+pip install -r requirements.txt
+python -m src.main
+streamlit run app.py
+
+Run tests:
+pytest
 
 ## Project Structure
+
+brent-oil-change-point/
+│
+├── app.py                     # Streamlit dashboard
+├── requirements.txt
+├── README.md
+├── .gitignore
 │
 ├── data/
-│ ├── raw/
-│ │ └── brent_oil_prices.csv
-│ └── external/
-│ └── oil_market_events.csv
+│   └── raw/
+│       └── BrentOilPrices.csv
+│   └── processed 
+│        └── changepoints.json
+│   └── external 
+│        └── oil_market_events.csv
+│
+├── models/
+│   └── brent_trace.nc         # Cached inference
 │
 ├── notebooks/
-│ ├── 01_eda_and_time_series_properties.ipynb
-│ └── 02_bayesian_change_point_model.ipynb
+│   └── task-1_eda_and_time_series_properties.ipynb
+│   └── tasl_2_change_point_analysis.ipynb
+│
+├── plots/
 │
 ├── reports/
-│ └── task1_analysis_plan.md
+│   └── change_point.png
 │
 ├── src/
-│ └── utils.py
+│   ├── analysis/
+│       └── event_analysis.py
 │
-├── dashboard/
-│ ├── backend/
-│ └── frontend/
+│   ├── config/
+│       └── settings.py
 │
-├── README.md
-└── requirements.txt
-
----
-
-# Task 1 – Brent Oil Price Change Point Analysis
-
-## Objective
-The objective of Task 1 is to define a complete data analysis workflow and develop a thorough understanding of Brent oil price data and Bayesian change point models. This task establishes the analytical foundation for identifying structural breaks in oil prices and associating them with major geopolitical, economic, and policy-related events.
-
-
-## Data Description
-- **Dataset**: Historical daily Brent oil prices
-- **Period**: May 20, 1987 – September 30, 2022
-- **Fields**:
-  - Date (daily frequency)
-  - Price (USD per barrel)
-
-An additional externally researched dataset contains major oil-market-related events, including geopolitical conflicts, OPEC decisions, and global economic shocks.
-
-
-## Analysis Workflow
-1. Data loading and validation
-2. Data cleaning and preprocessing
-3. Exploratory data analysis (trend, volatility, stationarity)
-4. Log-return transformation for stability
-5. Event data compilation and alignment
-6. Conceptual justification for Bayesian change point modeling
-7. Preparation for probabilistic inference and interpretation
-
-
-## Event Dataset
-A structured CSV file (`oil_market_events.csv`) was created containing 10–15 major events relevant to oil price movements. Each event includes:
-- Approximate start date
-- Event name
-- Category (Geopolitical, OPEC, Economic)
-- Brief description
-
-
-## Assumptions
-- Market reactions to major events occur within a short time window around the event date
-- Event dates are approximate and may not capture anticipation or delayed effects
-- Oil price dynamics are influenced by many unobserved factors not included in the model
-
-
-## Limitations and Causality
-This analysis identifies **statistical correlations in time**, not causal relationships.  
-A detected change point indicates that the statistical behavior of prices changed at a certain time, but it does not prove that a specific event caused the change. Multiple overlapping events, delayed market reactions, and external macroeconomic factors may influence results.
-
-
-## Communication Channels
-Results from this analysis are communicated through:
-- A technical analysis report (Markdown / PDF / Medium-style blog)
-- An interactive dashboard (Flask backend, React frontend)
-- Visualizations designed for investors, policymakers, and energy sector stakeholders
-
-
-## Outcome of Task 1
-Task 1 establishes a clear analytical framework, validates the suitability of change point modeling, and prepares the data and documentation required for Bayesian inference in Task 2.
-
-# Task 2: Bayesian Change Point Modeling and Insight Generation
-## Objective
-
-The objective of Task 2 is to apply Bayesian change point detection to identify and quantify structural breaks in Brent crude oil prices. This task aims to detect statistically significant shifts in price behavior, interpret their magnitude, and associate them with major geopolitical and economic events.
-
-## Methodology Overview
-
-### Data Preparation
-
-Loaded and validated Brent oil price data
-
-Converted date fields to datetime format
-
-Computed log returns to achieve stationarity
-
-### Exploratory Data Analysis
-
-Visualized raw price trends and volatility patterns
-
-Analyzed log returns to observe volatility clustering
-
-Conducted Augmented Dickey-Fuller (ADF) tests to confirm stationarity
-
-### Bayesian Change Point Modeling
-
-Implemented a Bayesian change point model in PyMC
-
-Defined a discrete uniform prior for the unknown change point
-
-Modeled pre- and post-change regimes with separate mean parameters
-
-Estimated posterior distributions using MCMC sampling
-
-### Model Diagnostics and Interpretation
-
-Assessed convergence using trace plots and R-hat statistics
-
-Identified probable change point dates from posterior distributions
-
-Quantified shifts in average price behavior before and after change points
-
-### Event Association
-
-Compared detected change points with major geopolitical and economic events
-
-Formulated hypotheses linking structural breaks to real-world shocks
-
-## Key Outputs
-
-Posterior distribution of detected change points
-
-Quantified estimates of regime shifts (before vs. after means)
-
-Probabilistic interpretation of structural breaks
-
-Hypothesis-driven association with oil market events
-
-## Key Assumptions
-
-Price changes can be approximated by regime-based mean shifts
-
-Detected change points indicate structural changes, not definitive causality
-
-Log returns sufficiently capture stationarity for modeling
-
-## Limitations
-
-Single change point model may not capture multiple structural breaks
-
-External macroeconomic variables are not directly modeled
-
-Associations with events are correlational, not causal
-
-# Task 3: Interactive Dashboard and API Development
-## Objective
-
-The objective of Task 3 is to operationalize the analytical insights generated in Task 2 by developing a backend API and a frontend dashboard architecture. This task bridges advanced Bayesian change point modeling with stakeholder-facing tools that enable interactive exploration of Brent oil price trends, detected structural breaks, and major geopolitical events.
-
-## System Architecture Overview
-
-Task 3 follows a modular, service-oriented architecture consisting of:
-
-Backend (Flask API): Serves processed data and model outputs through RESTful endpoints.
-
-Frontend (React – conceptual): Provides a component-based structure for interactive data visualization.
-
-Data Layer: Stores raw price data, event data, and processed change point outputs.
-
-This separation of concerns improves scalability, maintainability, and clarity.
-
-## Project Structure
-dashboard/
-├── backend/
-│   ├── app.py
-│   ├── routes/
-│   │   ├── prices.py
-│   │   ├── events.py
-│   │   └── changepoints.py
-│   ├── services/
-│   │   └── data_service.py
-│   └── __init__.py
+│   ├── data/
+│       └── load.py
+│       └── preprocess.py
 │
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── PriceChart.jsx
-│   │   │   ├── ChangePointChart.jsx
-│   │   │   └── EventTimeline.jsx
-│   │   └── App.jsx
-│   └── package.json
-## Backend API (Flask)
-### Purpose
+│   ├── models/
+│       └── change_point.py
+│
+│   ├── visualization/
+│       └── plot_change_point.py
+│
+│   └── main.py
+│
+└── tests/
+    ├── test_data.py
+    └── test_model.py
 
-The backend exposes Brent oil prices, oil market events, and Bayesian change point results via RESTful endpoints. These endpoints are designed to support dashboard visualization and future extensions.
+## Demo
 
-### Available Endpoints
-| Endpoint            | Description                                         |
-| ------------------- | --------------------------------------------------- |
-| `/`                 | Health check for backend                            |
-| `/api/prices`       | Returns Brent oil price time series                 |
-| `/api/events`       | Returns major geopolitical and economic events      |
-| `/api/changepoints` | Returns detected change point and quantified impact |
-### Backend Setup and Execution
+Local Demo:
+streamlit run app.py
 
-#### Install required dependencies:
+Dashboard includes:
 
-pip install flask pandas
+- Executive summary
 
-#### Run the backend server:
+- Structural break visualization
 
-cd dashboard/backend
-python app.py
+- Posterior distribution of change point
 
-#### Verify endpoints in a browser:
+- Regime comparison (mean & volatility)
 
-http://127.0.0.1:5000/
-http://127.0.0.1:5000/api/prices
-http://127.0.0.1:5000/api/events
-http://127.0.0.1:5000/api/changepoints
+- Event overlay (2008 crisis, 2014 oil crash, COVID shock)
 
-Successful responses confirm correct backend functionality.
-### Frontend Dashboard (React – Conceptual Implementation)
-#### Purpose
+- Model diagnostics (R-hat, ESS)
 
-The frontend provides a structured, component-based architecture for visualizing oil prices, change points, and events. While a fully running React application is not required, the folder structure and components demonstrate how the dashboard would consume backend APIs.
+(Insert GIF or Streamlit deployment link here once deployed.)
 
-#### Frontend Components
-| Component              | Description                           |
-| ---------------------- | ------------------------------------- |
-| `PriceChart.jsx`       | Displays Brent oil price trends       |
-| `ChangePointChart.jsx` | Highlights detected structural breaks |
-| `EventTimeline.jsx`    | Shows key oil market events           |
-| `App.jsx`              | Main dashboard container              |
-Each component is designed to independently consume data from the Flask API, enabling modular visualization and future scalability.
-## Data Integration
+## Technical Details
+### Data
 
-The backend accesses data from the following locations:
+- Source: Historical Brent crude oil price data.
 
-Raw price data: data/raw/brent_oil_prices.csv
+- Preprocessing:
 
-Event data: data/external/oil_market_events.csv
+     - Date parsing
 
-Model outputs: data/processed/changepoints.json
+     - Sorting by time
 
-Relative paths are used to ensure compatibility with the nested dashboard/backend directory structure.
+     - Log return computation
 
-## Assumptions
+### Model
 
-Backend APIs serve as the single source of truth for dashboard data.
+Bayesian change point model using PyMC.
 
-Frontend components consume data asynchronously via REST endpoints.
+Key components:
 
-Change point outputs represent statistically significant structural breaks but do not imply causal certainty.
+- Likelihood: Normal distribution on log returns
 
-## Limitations
+- Switchpoint parameter inferred via MCMC
 
-The frontend is provided as an architectural skeleton rather than a fully deployed application.
+- Posterior sampling using NUTS
 
-Only a single change point model output is currently exposed.
+- Diagnostics via ArviZ
 
-External macroeconomic indicators are not included at this stage.
+Inference is cached using NetCDF to prevent repeated sampling.
 
-## Future Enhancements
+### Evaluation
 
-Deployment of a fully interactive React dashboard
+Model quality assessed using:
 
-Support for multiple detected change points
+- R-hat (convergence diagnostic)
 
-Integration of additional macroeconomic data sources
+- Effective Sample Size (ESS)
 
-Enhanced visual analytics (filters, tooltips, regime highlighting)
+- Posterior distribution stability
 
-## Conclusion
+- Regime-level statistical comparison
 
-Task 3 successfully translates Bayesian change point analysis into an operational dashboard architecture. By exposing analytical outputs through a RESTful API and designing a modular frontend structure, this task demonstrates how advanced statistical insights can be transformed into accessible decision-support tools for energy sector stakeholders.
+## Future Improvements
+
+With more time, I would:
+
+- Deploy publicly on Streamlit Cloud
+
+- Add multi-change-point detection
+
+- Incorporate macroeconomic covariates
+
+- Enable automatic PDF export of analysis
+
+- Improve dashboard theming and responsiveness
+
+- Add scenario simulation tools
+
+## Technical Report
+
+Full technical report available here:
+[Brent Oil Structural Break Report (PDF)](reports/Brent_Oil_Structural_Break_Report.pdf)
+
+
+## Author
+
+Bitaniya Geremew
+Software Engineering Graduate
+Aspiring AI & Data Engineer
+
+LinkedIn: linkedin.com/in/bitaniya-geremew-a327b3258
+GitHub: https://github/BitaniaG
+Email: bitaniyageremew1@gmail.com
