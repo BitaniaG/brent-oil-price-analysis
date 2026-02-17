@@ -196,6 +196,10 @@ Model quality assessed using:
 
 - Regime-level statistical comparison
 
+### 🏗 System Architecture
+
+![Architecture Diagram](reports/Brent_Oil_Architecture_Diagram.png)
+
 ## Future Improvements
 
 With more time, I would:
